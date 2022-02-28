@@ -28,4 +28,12 @@ func TestNewUserName(t *testing.T) {
 			t.Errorf("got %s, want %s", got, want)
 		}
 	})
+	t.Run("fail name is less than 3 characters", func(t *testing.T) {
+		name := "na"
+		_, err := NewUserName(name)
+		want := "name must not be less than 3 characters."
+		if got := err.Error(); got != want {
+			t.Errorf("got %s, want %s", got, want)
+		}
+	})
 }
