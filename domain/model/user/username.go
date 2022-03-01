@@ -15,3 +15,7 @@ func NewUserName(name string) (*UserName, error) {
 	}
 	return &UserName{name: name}, nil
 }
+
+func (userName *UserName) Name() string {
+	return userName.name
+}

@@ -37,3 +37,17 @@ func TestNewUserName(t *testing.T) {
 		}
 	})
 }
+
+func TsetUserName(t *testing.T) {
+	name := "userName"
+	userName, err := NewUserName(name)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	got := userName.Name()
+	want := name
+	if got != want {
+		t.Errorf("got %s, want %s", got, want)
+	}
+}
