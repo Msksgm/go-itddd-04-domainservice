@@ -4,29 +4,27 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/google/uuid"
+	"github.com/google/go-cmp/cmp/cmpopts"
 )
 
 func TestNewUser(t *testing.T) {
-	uuidV4 := uuid.New().String()
-	userId, err := NewUserId(uuidV4)
-	if err != nil {
-		t.Fatal(err)
-	}
-
 	name := "userName"
 	userName, err := NewUserName(name)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	user, err := NewUser(*userId, *userName)
+	got, err := NewUser(*userName)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	wantUser := &User{userId: *userId, userName: *userName}
-	if diff := cmp.Diff(wantUser, user, cmp.AllowUnexported(User{}, UserName{}, UserId{})); diff != "" {
+	want := &User{userName: *userName}
+	opts := cmp.Options{
+		cmp.AllowUnexported(User{}, UserName{}, UserId{}),
+		cmpopts.IgnoreFields(*got, "userId"),
+	}
+	if diff := cmp.Diff(want, got, opts); diff != "" {
 		t.Errorf("mismatch (-wantUser, +got):\n%s", diff)
 	}
 }
