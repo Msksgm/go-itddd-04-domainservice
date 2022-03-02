@@ -6,7 +6,13 @@ import (
 	_ "github.com/lib/pq"
 )
 
-func Exists(db *sql.DB, user *User) (isExists bool, err error) {
+type UserService struct{}
+
+func NewUserService() *UserService {
+	return &UserService{}
+}
+
+func (UserService *UserService) Exists(db *sql.DB, user *User) (isExists bool, err error) {
 	tx, err := db.Begin()
 	if err != nil {
 		return

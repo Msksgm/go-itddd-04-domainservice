@@ -9,6 +9,8 @@ import (
 )
 
 func TestExists(t *testing.T) {
+	userService := NewUserService()
+
 	uuidV4 := uuid.New().String()
 	name := "userName"
 	user := &User{userId: UserId{id: uuidV4}, userName: UserName{name: name}}
@@ -25,7 +27,7 @@ func TestExists(t *testing.T) {
 			WillReturnRows(mock.NewRows([]string{"id", "name"}).AddRow(uuidV4, "userName"))
 		mock.ExpectCommit()
 
-		isExists, err := Exists(db, user)
+		isExists, err := userService.Exists(db, user)
 		if err != nil {
 			t.Errorf("error was not expected: %s", err)
 		}
@@ -43,7 +45,7 @@ func TestExists(t *testing.T) {
 			WillReturnRows(mock.NewRows([]string{}))
 		mock.ExpectCommit()
 
-		isExists, err := Exists(db, user)
+		isExists, err := userService.Exists(db, user)
 		if err != nil {
 			t.Errorf("error was not expected: %s", err)
 		}
