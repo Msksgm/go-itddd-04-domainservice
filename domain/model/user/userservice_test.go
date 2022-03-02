@@ -33,6 +33,6 @@ func TestExists(t *testing.T) {
 		t.Errorf("there were unfulfilled expectations: %s", err)
 	}
 	if !isExists {
-		t.Errorf("isExists: must be false, not false")
+		t.Errorf("isExists: must be true, not false")
 	}
 }
