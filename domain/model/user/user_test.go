@@ -28,3 +28,21 @@ func TestNewUser(t *testing.T) {
 		t.Errorf("mismatch (-wantUser, +got):\n%s", diff)
 	}
 }
+
+func TestUserName(t *testing.T) {
+	name := "userName"
+	userName, err := NewUserName(name)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	user, err := NewUser(*userName)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	want := name
+	if got := user.UserName(); got != want {
+		t.Errorf("got %s, want %s", got, want)
+	}
+}
