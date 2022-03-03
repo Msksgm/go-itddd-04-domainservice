@@ -9,3 +9,7 @@ func NewUserId(uuid string) (*UserId, error) {
 	userId.id = uuid
 	return userId, nil
 }
+
+func (userId *UserId) Id() string {
+	return userId.id
+}
