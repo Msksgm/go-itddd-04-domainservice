@@ -23,3 +23,21 @@ func TestNewBagge(t *testing.T) {
 		t.Errorf("mismatch (-want, +got):\n%s", diff)
 	}
 }
+
+func TestBaggaeId(t *testing.T) {
+	id := "id"
+	baggageId, err := NewBaggageId(id)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	baggage, err := NewBaggage(baggageId)
+	if err != nil {
+		log.Fatal(err)
+	}
+	got := baggage.BaggageId()
+	want := baggageId
+	if diff := cmp.Diff(want, got, cmp.AllowUnexported(BaggageId{})); diff != "" {
+		t.Errorf("mismatch (-want, +got):\n%s", diff)
+	}
+}
