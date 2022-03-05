@@ -3,11 +3,31 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"log"
+	"os"
 
 	"github.com/Msksgm/itddd-go-04-domainservice/domain/model/user"
+	_ "github.com/lib/pq"
 )
 
 func main() {
+	uri := fmt.Sprintf("postgres://%s/%s?sslmode=disable&user=%s&password=%s&port=%s&timezone=Asia/Tokyo",
+		os.Getenv("DB_HOST"), os.Getenv("DB_NAME"), os.Getenv("DB_USER"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_PORT"))
+	db, err := sql.Open("postgres", uri)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := db.Ping(); err != nil {
+		log.Fatal(err)
+	}
+	log.Println("successfully connected to database")
+
+	err = CreateUser(db, "test-user")
+	if err != nil {
+		log.Println(err)
+	} else {
+		log.Println("test-user is successfully added in users table")
+	}
 }
 
 func CreateUser(db *sql.DB, name string) (err error) {
