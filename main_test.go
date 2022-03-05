@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	id   = "id"
+	id   = "userId"
 	name = "userName"
 )
 
@@ -24,7 +24,7 @@ func TestCreateUser(t *testing.T) {
 		mock.ExpectBegin()
 		mock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM users WHERE username = $1`)).
 			WithArgs(name).
-			WillReturnRows(mock.NewRows([]string{"id", "username"}))
+			WillReturnRows(mock.NewRows([]string{"userId", "username"}))
 		mock.ExpectCommit()
 
 		mock.ExpectBegin()
@@ -51,7 +51,7 @@ func TestCreateUser(t *testing.T) {
 		mock.ExpectBegin()
 		mock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM users WHERE username = $1`)).
 			WithArgs(name).
-			WillReturnRows(mock.NewRows([]string{"id", "username"}).AddRow(id, name))
+			WillReturnRows(mock.NewRows([]string{"userId", "username"}).AddRow(id, name))
 		mock.ExpectCommit()
 
 		mock.ExpectBegin()

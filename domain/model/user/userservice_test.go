@@ -23,7 +23,7 @@ func TestExists(t *testing.T) {
 		mock.ExpectBegin()
 		mock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM users WHERE username = $1`)).
 			WithArgs("userName").
-			WillReturnRows(mock.NewRows([]string{"id", "username"}).AddRow(uuidV4, "userName"))
+			WillReturnRows(mock.NewRows([]string{"userid", "username"}).AddRow(uuidV4, "userName"))
 		mock.ExpectCommit()
 
 		isExists, err := userService.Exists(user)
