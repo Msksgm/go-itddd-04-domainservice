@@ -17,7 +17,7 @@ func TestExists(t *testing.T) {
 		t.Fatalf("an error '%s' was not expected when opening a stub database connection", err)
 	}
 	defer db.Close()
-	userService := NewUserService(db)
+	userService, _ := NewUserService(db)
 
 	t.Run("true", func(t *testing.T) {
 		mock.ExpectBegin()

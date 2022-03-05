@@ -7,16 +7,12 @@ import (
 	_ "github.com/lib/pq"
 )
 
-type UserServicer interface {
-	Exists(user *User) (bool, error)
-}
-
 type UserService struct {
 	db *sql.DB
 }
 
-func NewUserService(db *sql.DB) UserServicer {
-	return &UserService{db: db}
+func NewUserService(db *sql.DB) (*UserService, error) {
+	return &UserService{db: db}, nil
 }
 
 func (userService *UserService) Exists(user *User) (isExists bool, err error) {

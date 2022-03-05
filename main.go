@@ -40,7 +40,10 @@ func CreateUser(db *sql.DB, name string) (err error) {
 		return
 	}
 
-	userService := user.NewUserService(db)
+	userService, err := user.NewUserService(db)
+	if err != nil {
+		return
+	}
 	isExists, err := userService.Exists(newUser)
 	tx, err := db.Begin()
 	if err != nil {
