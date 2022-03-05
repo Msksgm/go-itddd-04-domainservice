@@ -57,7 +57,7 @@ func TestCreateUser(t *testing.T) {
 		mock.ExpectBegin()
 		mock.ExpectCommit()
 
-		want := fmt.Sprintf("%s is already exists.", name)
+		want := fmt.Sprintf("main.CreateUser(): %s is already exists.", name)
 		err = CreateUser(db, name)
 		if got := err.Error(); got != want {
 			t.Errorf("got %s, want %s", got, want)
