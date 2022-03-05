@@ -1,6 +1,10 @@
 package user
 
-import "github.com/google/uuid"
+import (
+	"reflect"
+
+	"github.com/google/uuid"
+)
 
 type User struct {
 	userId   UserId
@@ -21,4 +25,8 @@ func (user *User) UserName() string {
 
 func (user *User) UserId() string {
 	return user.userId.Id()
+}
+
+func (user *User) Equals(other *User) bool {
+	return reflect.DeepEqual(user.userId, other.userId)
 }
