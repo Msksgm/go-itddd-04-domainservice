@@ -25,8 +25,6 @@ func main() {
 	err = CreateUser(db, "test-user")
 	if err != nil {
 		log.Println(err)
-	} else {
-		log.Println("test-user is successfully added in users table")
 	}
 }
 
@@ -69,5 +67,6 @@ func CreateUser(db *sql.DB, name string) (err error) {
 	if err != nil {
 		return fmt.Errorf("main.CreateUser(): %v", err)
 	}
+	log.Println("test-user is successfully added in users table")
 	return nil
 }
