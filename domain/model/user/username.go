@@ -1,6 +1,9 @@
 package user
 
-import "fmt"
+import (
+	"fmt"
+	"reflect"
+)
 
 type UserName struct {
 	name string
@@ -18,4 +21,8 @@ func NewUserName(name string) (*UserName, error) {
 
 func (userName *UserName) Name() string {
 	return userName.name
+}
+
+func (userName *UserName) Equals(other *UserName) bool {
+	return reflect.DeepEqual(userName.name, other.name)
 }
