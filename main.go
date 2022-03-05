@@ -42,9 +42,9 @@ func CreateUser(db *sql.DB, name string) (err error) {
 		return fmt.Errorf("%s is already exists.", name)
 	}
 
-	_, err = db.Exec("INSERT INTO users (id, name) VALUES ($1, $2)", newUser.UserId(), newUser.UserName())
+	_, err = db.Exec("INSERT INTO users (id, username) VALUES ($1, $2)", newUser.UserId(), newUser.UserName())
 	if err != nil {
-		return
+		return fmt.Errorf("main.CreateUser(): %v", err)
 	}
 	return nil
 }

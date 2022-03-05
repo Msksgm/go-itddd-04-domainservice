@@ -22,9 +22,9 @@ func TestCreateUser(t *testing.T) {
 		defer db.Close()
 
 		mock.ExpectBegin()
-		mock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM users WHERE name = $1`)).
+		mock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM users WHERE username = $1`)).
 			WithArgs(name).
-			WillReturnRows(mock.NewRows([]string{"id", "name"}))
+			WillReturnRows(mock.NewRows([]string{"id", "username"}))
 		mock.ExpectCommit()
 
 		mock.ExpectBegin()
@@ -49,9 +49,9 @@ func TestCreateUser(t *testing.T) {
 		defer db.Close()
 
 		mock.ExpectBegin()
-		mock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM users WHERE name = $1`)).
+		mock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM users WHERE username = $1`)).
 			WithArgs(name).
-			WillReturnRows(mock.NewRows([]string{"id", "name"}).AddRow(id, name))
+			WillReturnRows(mock.NewRows([]string{"id", "username"}).AddRow(id, name))
 		mock.ExpectCommit()
 
 		mock.ExpectBegin()

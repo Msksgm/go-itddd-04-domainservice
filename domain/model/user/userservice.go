@@ -2,6 +2,7 @@ package user
 
 import (
 	"database/sql"
+	"fmt"
 
 	_ "github.com/lib/pq"
 )
@@ -33,9 +34,9 @@ func (userService *UserService) Exists(user *User) (isExists bool, err error) {
 		}
 	}()
 
-	rows, err := tx.Query("SELECT * FROM users WHERE name = $1", user.UserName())
+	rows, err := tx.Query("SELECT * FROM users WHERE username = $1", user.UserName())
 	if err != nil {
-		return
+		return false, fmt.Errorf("userservice.Exists(): %v", err)
 	}
 	defer rows.Close()
 
